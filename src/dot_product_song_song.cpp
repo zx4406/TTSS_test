@@ -17,7 +17,7 @@ double tinhTichVoHuongSongSong(const vector<double>& vectorA, const vector<doubl
     }
     double tongTich = 0.0;
     #pragma omp parallel for reduction(+:tongTich) schedule(static) num_threads(soLuong)
-    for (long long i = 0; i < vectorA.size(); ++i) {
+    for (long long i = 0; i < vectorA.size(); i++) {
         tongTich += vectorA[i] * vectorB[i];
     }
     if (!isfinite(tongTich)) {

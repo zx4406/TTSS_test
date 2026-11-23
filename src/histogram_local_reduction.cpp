@@ -24,14 +24,14 @@ void tinhHistogramCucBo(const vector<int>& duLieuDauVao, int soBin, int soLuong,
         int maLuong = omp_get_thread_num();
         vector<long long>& hist = histRieng[maLuong];
         #pragma omp for schedule(static)
-        for (size_t i = 0; i < duLieuDauVao.size(); ++i) {
+        for (size_t i = 0; i < duLieuDauVao.size(); i++) {
             size_t bin = (size_t)((long long)duLieuDauVao[i] * soBin / (GIA_TRI_TOI_DA + 1));
             hist[bin]++;
         }
     }
-    // Reduction: gộp các histogram cục bộ, chi phí O(soLuong * soBin).
-    for (int maLuong = 0; maLuong < soLuong; ++maLuong) {
-        for (int bin = 0; bin < soBin; ++bin) {
+    // Reduction: gộp các histogram cục bộ
+    for (int maLuong = 0; maLuong < soLuong; maLuong++) {
+        for (int bin = 0; bin < soBin; bin++) {
             ketQuaHistogram[bin] += histRieng[maLuong][bin];
         }
     }

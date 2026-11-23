@@ -59,23 +59,23 @@ int main() {
         long long kichThuoc = 0;
         double giaTriNhoNhat = 0.0;
         double giaTriLonNhat = 0.0;
-        unsigned int maDinhDanhA = 0;
-        unsigned int maDinhDanhB = 0;
-        if (!(cin >> kichThuoc >> giaTriNhoNhat >> giaTriLonNhat >> maDinhDanhA >> maDinhDanhB)) {
+        unsigned int idA = 0;
+        unsigned int idB = 0;
+        if (!(cin >> kichThuoc >> giaTriNhoNhat >> giaTriLonNhat >> idA >> idB)) {
             throw invalid_argument("Loi: input.txt thieu tham so sinh du lieu.");
         }
         double thoiGianBatDau = omp_get_wtime();
         vector<double> vectorA;
         vector<double> vectorB;
-        sinhDuLieuNgauNhien(kichThuoc, giaTriNhoNhat, giaTriLonNhat, maDinhDanhA, vectorA);
-        sinhDuLieuNgauNhien(kichThuoc, giaTriNhoNhat, giaTriLonNhat, maDinhDanhB, vectorB);
+        sinhDuLieuNgauNhien(kichThuoc, giaTriNhoNhat, giaTriLonNhat, idA, vectorA);
+        sinhDuLieuNgauNhien(kichThuoc, giaTriNhoNhat, giaTriLonNhat, idB, vectorB);
         double thoiGianKhoiTao = omp_get_wtime() - thoiGianBatDau;
         cout << fixed << setprecision(6);
-        cout << "kichThuoc=" << kichThuoc << " giaTri=[" << giaTriNhoNhat << ", " << giaTriLonNhat << "] maDinhDanhA=" << maDinhDanhA << " maDinhDanhB=" << maDinhDanhB << "\n";
+        cout << "kichThuoc=" << kichThuoc << " giaTri=[" << giaTriNhoNhat << ", " << giaTriLonNhat << "] idA=" << idA << " idB=" << idB << "\n";
         cout << "thoiGianKhoiTao=" << thoiGianKhoiTao <<"s"<< "\n";
         vector<double> thoiGianTuanTu;
         double ketQuaTuanTu = 0.0;
-        for (int lanLap = 0; lanLap < SO_LAN_LAP; ++lanLap) {
+        for (int lanLap = 0; lanLap < SO_LAN_LAP; lanLap++) {
             double thoiGianBatDauTinh = omp_get_wtime();
             ketQuaTuanTu = tinhTichVoHuongTuanTu(vectorA, vectorB);
             thoiGianTuanTu.push_back(omp_get_wtime() - thoiGianBatDauTinh);
@@ -86,7 +86,7 @@ int main() {
             try {
                 vector<double> thoiGianSongSong;
                 double ketQuaSongSong = 0.0;
-                for (int lanLap = 0; lanLap < SO_LAN_LAP; ++lanLap) {
+                for (int lanLap = 0; lanLap < SO_LAN_LAP; lanLap++) {
                     double thoiGianBatDauTinh = omp_get_wtime();
                     ketQuaSongSong = tinhTichVoHuongSongSong(vectorA, vectorB, soLuong);
                     thoiGianSongSong.push_back(omp_get_wtime() - thoiGianBatDauTinh);
@@ -103,7 +103,7 @@ int main() {
         }
         cout << "kiemTraDungDan=PASS\n";
     } catch (const exception& loi) {
-        cerr << loi.what() << "\n";
+        cout << loi.what() << "\n";
         return 1;
     }
     return 0;

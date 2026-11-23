@@ -12,7 +12,7 @@ double tinhTichVoHuongTuanTu(const vector<double>& vectorA, const vector<double>
         throw invalid_argument("Loi: kich thuoc hai vector khong bang nhau.");
     }
     double tichVoHuong = 0.0;
-    for (long long i = 0; i < vectorA.size(); ++i) {
+    for (long long i = 0; i < vectorA.size(); i++) {
         tichVoHuong += vectorA[i] * vectorB[i];
     }
     if (!isfinite(tichVoHuong)) {

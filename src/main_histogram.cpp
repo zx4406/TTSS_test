@@ -91,17 +91,17 @@ int main() {
         vector<double> thoiGianTuanTu;
         vector<double> thoiGianAtomic;
         vector<double> thoiGianCucBo;
-        for (int lanLap = 0; lanLap < soLanLap; ++lanLap) {
+        for (int lanLap = 0; lanLap < soLanLap; lanLap++) {
             double thoiGianBatDauTinh = omp_get_wtime();
             tinhHistogramTuanTu(duLieuDauVao, soBin, ketQuaTuanTu);
             thoiGianTuanTu.push_back(omp_get_wtime() - thoiGianBatDauTinh);
         }
-        for (int lanLap = 0; lanLap < soLanLap; ++lanLap) {
+        for (int lanLap = 0; lanLap < soLanLap; lanLap++) {
             double thoiGianBatDauTinh = omp_get_wtime();
             tinhHistogramAtomic(duLieuDauVao, soBin, soLuong, ketQuaAtomic);
             thoiGianAtomic.push_back(omp_get_wtime() - thoiGianBatDauTinh);
         }
-        for (int lanLap = 0; lanLap < soLanLap; ++lanLap) {
+        for (int lanLap = 0; lanLap < soLanLap; lanLap++) {
             double thoiGianBatDauTinh = omp_get_wtime();
             tinhHistogramCucBo(duLieuDauVao, soBin, soLuong, ketQuaCucBo);
             thoiGianCucBo.push_back(omp_get_wtime() - thoiGianBatDauTinh);
@@ -117,12 +117,12 @@ int main() {
         cout << fixed << setprecision(6);
         cout << "kichThuocDuLieu=" << kichThuocDuLieu << " soBin=" << soBin << " soLuong=" << soLuong << " loaiPhanPhoi=" << loaiPhanPhoi << " soLanLap=" << soLanLap << "\n";
         cout << "thoiGianKhoiTao_s=" << thoiGianKhoiTao << "\n";
-        cout << "tuanTu_median_s=" << trungViTuanTu << " min_s=" << tinhNhoNhat(thoiGianTuanTu) << " max_s=" << tinhLonNhat(thoiGianTuanTu) << " std_s=" << tinhDoLechChuan(thoiGianTuanTu) << "\n";
-        cout << "atomic_median_s=" << trungViAtomic << " min_s=" << tinhNhoNhat(thoiGianAtomic) << " max_s=" << tinhLonNhat(thoiGianAtomic) << " std_s=" << tinhDoLechChuan(thoiGianAtomic) << " speedup=" << trungViTuanTu / trungViAtomic << " efficiency=" << (trungViTuanTu / trungViAtomic) / soLuong << "\n";
-        cout << "cucBo_median_s=" << trungViCucBo << " min_s=" << tinhNhoNhat(thoiGianCucBo) << " max_s=" << tinhLonNhat(thoiGianCucBo) << " std_s=" << tinhDoLechChuan(thoiGianCucBo) << " speedup=" << trungViTuanTu / trungViCucBo << " efficiency=" << (trungViTuanTu / trungViCucBo) / soLuong << "\n";
+        cout << "tuanTu_median_s=" << trungViTuanTu << " min_s=" << tinhNhoNhat(thoiGianTuanTu) << " max_s=" << tinhLonNhat(thoiGianTuanTu) << " doLechChuan_s=" << tinhDoLechChuan(thoiGianTuanTu) << "\n";
+        cout << "atomic_median_s=" << trungViAtomic << " min_s=" << tinhNhoNhat(thoiGianAtomic) << " max_s=" << tinhLonNhat(thoiGianAtomic) << " doLechChuan_s=" << tinhDoLechChuan(thoiGianAtomic) << " speedup=" << trungViTuanTu / trungViAtomic << " efficiency=" << (trungViTuanTu / trungViAtomic) / soLuong << "\n";
+        cout << "cucBo_median_s=" << trungViCucBo << " min_s=" << tinhNhoNhat(thoiGianCucBo) << " max_s=" << tinhLonNhat(thoiGianCucBo) << " doLechChuan_s=" << tinhDoLechChuan(thoiGianCucBo) << " speedup=" << trungViTuanTu / trungViCucBo << " efficiency=" << (trungViTuanTu / trungViCucBo) / soLuong << "\n";
         cout << "kiemTraDungDan=PASS\n";
     } catch (const exception& loi) {
-        cerr << loi.what() << "\n";
+        cout << loi.what() << "\n";
         return 1;
     }
     return 0;
