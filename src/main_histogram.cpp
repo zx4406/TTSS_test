@@ -1,5 +1,5 @@
 #include "histogram.h"
-#include "../src/sinh_du_lieu.h"
+#include "sinh_du_lieu.h"
 #include <algorithm>
 #include <cmath>
 #include <iomanip>
