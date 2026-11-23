@@ -50,7 +50,7 @@ double tinhDoLechChuan(const vector<double>& cacGiaTri) {
 
 int main() {
     try {
-        if (!freopen("input.txt", "r", stdin)) {
+        if (!freopen("input_dot_product.txt", "r", stdin)) {
             throw runtime_error("Loi: khong mo duoc file input.txt.");
         }
         if (!freopen("output.txt", "w", stdout)) {
@@ -81,7 +81,7 @@ int main() {
             thoiGianTuanTu.push_back(omp_get_wtime() - thoiGianBatDauTinh);
         }
         double trungViTuanTu = tinhTrungVi(thoiGianTuanTu);
-        cout << "tuanTu ketQua=" << ketQuaTuanTu << " median=" << trungViTuanTu << "s" << "\n";
+        cout << "tuanTu ketQua=" << ketQuaTuanTu << " median=" << trungViTuanTu << "s" << " min=" << tinhNhoNhat(thoiGianTuanTu) << "s" << " max=" << tinhLonNhat(thoiGianTuanTu) << "s" << " doLechChuan=" << tinhDoLechChuan(thoiGianTuanTu) << "s" << "\n";
         for (int soLuong : {0, 1, 2, 4, 8, 15}) {
             try {
                 vector<double> thoiGianSongSong;

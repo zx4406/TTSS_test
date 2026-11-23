@@ -64,7 +64,7 @@ void kiemTraKetQua(const vector<long long>& ketQuaChuan, const vector<long long>
 
 int main() {
     try {
-        if (!freopen("input.txt", "r", stdin)) {
+        if (!freopen("input_histogram.txt", "r", stdin)) {
             throw runtime_error("Loi: khong mo duoc file input.txt.");
         }
         if (!freopen("output.txt", "w", stdout)) {
