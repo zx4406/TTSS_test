@@ -21,6 +21,31 @@ double tinhTrungVi(vector<double> cacGiaTri) {
     }
 }
 
+double tinhNhoNhat(const vector<double>& cacGiaTri) {
+    return *min_element(cacGiaTri.begin(), cacGiaTri.end());
+}
+
+double tinhLonNhat(const vector<double>& cacGiaTri) {
+    return *max_element(cacGiaTri.begin(), cacGiaTri.end());
+}
+
+// Độ lệch chuẩn mẫu, chia cho (n - 1)
+double tinhDoLechChuan(const vector<double>& cacGiaTri) {
+    if (cacGiaTri.size() <= 1) {
+        return 0.0;
+    }
+    double tong = 0.0;
+    for (double giaTri : cacGiaTri) {
+        tong += giaTri;
+    }
+    double trungBinh = tong / (double)cacGiaTri.size();
+    double tongBinhPhuongSaiSo = 0.0;
+    for (double giaTri : cacGiaTri) {
+        tongBinhPhuongSaiSo += (giaTri - trungBinh) * (giaTri - trungBinh);
+    }
+    return sqrt(tongBinhPhuongSaiSo / (double)(cacGiaTri.size() - 1));
+}
+
 void kiemTraKetQua(const vector<long long>& ketQuaChuan, const vector<long long>& ketQuaKiemTra, long long kichThuocDuLieu) {
     if (ketQuaChuan.size() != ketQuaKiemTra.size()) {
         throw runtime_error("Loi: kich thuoc histogram khac nhau.");
@@ -92,9 +117,9 @@ int main() {
         cout << fixed << setprecision(6);
         cout << "kichThuocDuLieu=" << kichThuocDuLieu << " soBin=" << soBin << " soLuong=" << soLuong << " loaiPhanPhoi=" << loaiPhanPhoi << " soLanLap=" << soLanLap << "\n";
         cout << "thoiGianKhoiTao_s=" << thoiGianKhoiTao << "\n";
-        cout << "tuanTu_median_s=" << trungViTuanTu << "\n";
-        cout << "atomic_median_s=" << trungViAtomic << " speedup=" << trungViTuanTu / trungViAtomic << "\n";
-        cout << "cucBo_median_s=" << trungViCucBo << " speedup=" << trungViTuanTu / trungViCucBo << " efficiency=" << (trungViTuanTu / trungViCucBo) / soLuong << "\n";
+        cout << "tuanTu_median_s=" << trungViTuanTu << " min_s=" << tinhNhoNhat(thoiGianTuanTu) << " max_s=" << tinhLonNhat(thoiGianTuanTu) << " std_s=" << tinhDoLechChuan(thoiGianTuanTu) << "\n";
+        cout << "atomic_median_s=" << trungViAtomic << " min_s=" << tinhNhoNhat(thoiGianAtomic) << " max_s=" << tinhLonNhat(thoiGianAtomic) << " std_s=" << tinhDoLechChuan(thoiGianAtomic) << " speedup=" << trungViTuanTu / trungViAtomic << " efficiency=" << (trungViTuanTu / trungViAtomic) / soLuong << "\n";
+        cout << "cucBo_median_s=" << trungViCucBo << " min_s=" << tinhNhoNhat(thoiGianCucBo) << " max_s=" << tinhLonNhat(thoiGianCucBo) << " std_s=" << tinhDoLechChuan(thoiGianCucBo) << " speedup=" << trungViTuanTu / trungViCucBo << " efficiency=" << (trungViTuanTu / trungViCucBo) / soLuong << "\n";
         cout << "kiemTraDungDan=PASS\n";
     } catch (const exception& loi) {
         cerr << loi.what() << "\n";

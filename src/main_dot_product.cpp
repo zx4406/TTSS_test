@@ -23,6 +23,31 @@ double tinhTrungVi(vector<double> cacGiaTri) {
     }
 }
 
+double tinhNhoNhat(const vector<double>& cacGiaTri) {
+    return *min_element(cacGiaTri.begin(), cacGiaTri.end());
+}
+
+double tinhLonNhat(const vector<double>& cacGiaTri) {
+    return *max_element(cacGiaTri.begin(), cacGiaTri.end());
+}
+
+// Độ lệch chuẩn mẫu, chia cho (n - 1)
+double tinhDoLechChuan(const vector<double>& cacGiaTri) {
+    if (cacGiaTri.size() <= 1) {
+        return 0.0;
+    }
+    double tong = 0.0;
+    for (double giaTri : cacGiaTri) {
+        tong += giaTri;
+    }
+    double trungBinh = tong / (double)cacGiaTri.size();
+    double tongBinhPhuongSaiSo = 0.0;
+    for (double giaTri : cacGiaTri) {
+        tongBinhPhuongSaiSo += (giaTri - trungBinh) * (giaTri - trungBinh);
+    }
+    return sqrt(tongBinhPhuongSaiSo / (double)(cacGiaTri.size() - 1));
+}
+
 int main() {
     try {
         if (!freopen("input.txt", "r", stdin)) {
@@ -71,7 +96,7 @@ int main() {
                     throw runtime_error("Loi: ket qua song song khac ban tuan tu.");
                 }
                 double trungViSongSong = tinhTrungVi(thoiGianSongSong);
-                cout << "soLuong=" << soLuong << " ketQua=" << ketQuaSongSong << " median=" << trungViSongSong << "s" << " speedup=" << trungViTuanTu / trungViSongSong << " efficiency=" << (trungViTuanTu / trungViSongSong) / soLuong << "\n";
+                cout << "soLuong=" << soLuong << " ketQua=" << ketQuaSongSong << " median=" << trungViSongSong << "s" << " min=" << tinhNhoNhat(thoiGianSongSong) << "s" << " max=" << tinhLonNhat(thoiGianSongSong) << "s" << " doLechChuan=" << tinhDoLechChuan(thoiGianSongSong) << "s" << " speedup=" << trungViTuanTu / trungViSongSong << " efficiency=" << (trungViTuanTu / trungViSongSong) / soLuong << "\n";
             } catch (const exception& loi) {
                 cout << "soLuong=" << soLuong << " | " << loi.what() << " (test phong ngua, khong tinh speedup)\n";
             }
