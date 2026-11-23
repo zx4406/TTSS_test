@@ -2,26 +2,6 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Run C++ (OpenMP)",
-      "type": "cppdbg",
-      "request": "launch",
-      "args": [],
-      "stopAtEntry": false,
-      "externalConsole": true,
-      "cwd": "${fileDirname}",
-      "program": "${fileDirname}/${fileBasenameNoExtension}.exe",
-      "MIMode": "gdb",
-      "miDebuggerPath": "C:/MSYS2/ucrt64/bin/gdb.exe",
-      "preLaunchTask": "C++: build active file (OpenMP)",
-      "setupCommands": [
-        {
-          "description": "Enable pretty-printing for gdb",
-          "text": "-enable-pretty-printing",
-          "ignoreFailures": true
-        }
-      ]
-    },
-    {
       "name": "C/C++ Runner: Debug Session",
       "type": "cppdbg",
       "request": "launch",
